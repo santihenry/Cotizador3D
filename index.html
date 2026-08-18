@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Print Cost Pro | Bambu Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="container">
+        <header>
+            <h1><span>RYHEN 3D</span> PRINTS</h1>
+        </header>
+        
+        <main class="dashboard">
+            <section class="input-panel">
+                <!-- Gastos Fijos -->
+                <div class="card">
+                    <div class="card-header">📂 Gastos Fijos</div>
+                    <div class="grid-inputs">
+                        <div class="field">
+                            <label>Filamento ($/kg)</label>
+                            <input type="number" id="precioFilamento" value="25000">
+                        </div>
+                        <div class="field">
+                            <label>Precio kWh ($)</label>
+                            <input type="number" id="precioKwh" value="300">
+                        </div>
+                        <div class="field">
+                            <label>Consumo (W)</label>
+                            <input type="number" id="consumoW" value="160">
+                        </div>
+                        <div class="field">
+                            <label>Vida Útil (hs)</label>
+                            <input type="number" id="vidaUtil" value="3500">
+                        </div>
+                        <div class="field">
+                            <label>Repuestos ($)</label>
+                            <input type="number" id="costoRepuestos" value="200000">
+                        </div>
+                        <div class="field">
+                            <label>Error (%)</label>
+                            <input type="number" id="margenError" value="5">
+                        </div>
+                        <div class="field">
+                            <label>Comision plataforma (%)</label>
+                            <input type="number" id="multiMl" step="0.1" value="1.25">
+                        </div>
+
+                        <!-- Extras Dinámicos (único ahora) -->
+                        <div class="field full-width">
+                            <label>Extras (Insumos adicionales)</label>
+                            <div id="lista-extras"></div>
+                            <button type="button" id="btn-add-extra" style="background: none; border: 1px dashed var(--accent); color: var(--accent); cursor: pointer; padding: 5px; border-radius: 4px; font-size: 0.7rem; margin-top: 5px;">
+                                + Agregar Insumo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parámetros de Pieza -->
+                <div class="card">
+                    <div class="card-header">⚙️ Parámetros de Pieza</div>
+                    <div class="grid-inputs">
+                        <div class="field">
+                            <label>Horas Impresión</label>
+                            <input type="number" id="horasImpresion" step="0.1" value="0">
+                        </div>
+                        <div class="field">
+                            <label>Gramos Usados</label>
+                            <input type="number" id="gramosPieza" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ganancia -->
+                <div class="card">
+                    <div class="card-header">💰 Ganancia</div>
+                    <div class="field full-width">
+                        <label>Margen de ganancia (multiplicador)</label>
+                        <div class="input-container-ganancia">
+                            <input type="number" id="multiplicador" step="0.1" value="4">
+                            <span class="input-suffix">x</span>
+                        </div>
+                    </div>
+                    <div class="field full-width">
+                        <br>
+                        <label>Margen de ganancia Extras (multiplicador)</label>
+                        <div class="input-container-ganancia">
+                            <input type="number" id="multiplicadorExtras" step="0.1" value="1.5">
+                            <span class="input-suffix">x</span>
+                        </div>
+                    </div>
+                    <div class="referencias">
+                        <p class="ref-title">Referencias:</p>
+                        <ul>
+                            <li><span>• Mayorista</span> <span>→ 3</span></li>
+                            <li><span>• Minorista</span> <span>→ 4</span></li>
+                            <li><span>• Llaveros</span> <span>→ 5</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resultados -->
+            <section class="result-panel">
+                <div class="card summary-card">
+                    <div class="card-header">📊 Desglose de Costos</div>
+                    <div class="res-list">
+                        <div class="res-row"><span>Material</span> <b id="resMaterial">$0</b></div>
+                        <div class="res-row"><span>Electricidad</span> <b id="resLuz">$0</b></div>
+                        <div class="res-row"><span>Amortización</span> <b id="resDesgaste">$0</b></div>
+                        <div class="res-row"><span>Seguridad (Error)</span> <b id="resMargen">$0</b></div>                        
+                        <hr>
+                        <div class="res-row"><span>Subtotal</span> <b id="resSubtotal">$0</b></div>
+                        <div class="res-row"><span>Extras</span> <b id="resExtras">$0</b></div>
+                        <hr>
+                        <div class="res-row highlight"><span>Costo de Producción</span> <b id="resCostoTotal">$0</b></div>
+                    </div>
+                    <div class="final-box primary">
+                        <small>TOTAL A COBRAR</small>
+                        <h2 id="totalCobrar">$0</h2>
+                    </div>
+
+                    <div class="final-box secondary">
+                        <small>PRECIO MERCADOLIBRE</small>
+                        <h3 id="totalML">$0</h3>
+                    </div>
+
+                    <button id="btn-pdf" style="width: 100%; margin-top: 15px; padding: 12px; background: var(--accent); border: none; border-radius: 8px; color: #000; font-weight: bold; cursor: pointer;">
+                        📥 Descargar Presupuesto PDF
+                    </button>
+                </div>
+            </section>
+
+            
+
+        </main>
+    </div>    
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script> 
+</body>
+</html>
