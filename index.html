@@ -52,7 +52,7 @@
                         <div class="field full-width">
                             <label>Extras (Insumos adicionales)</label>
                             <div id="lista-extras"></div>
-                            <button type="button" id="btn-add-extra">+ Agregar Insumo</button>
+                            <button type="button" id="btn-add-extra" class="btn-add-fila">+ Agregar Insumo</button>
                         </div>
                     </div>
                 </div>
@@ -70,6 +70,10 @@
                             <input type="number" id="gramosPieza" min="0" value="0">
                         </div>
                         <div class="field">
+                            <label for="cantidadPiezas">Cantidad de piezas</label>
+                            <input type="number" id="cantidadPiezas" min="1" step="1" value="1">
+                        </div>
+                        <div class="field">
                             <label for="tipoMaterial">Tipo de material</label>
                             <select id="tipoMaterial">
                                 <option value="PLA">PLA</option>
@@ -83,7 +87,12 @@
                         </div>
                         <div class="field full-width">
                             <label for="piezaDescripcion">Descripción de la pieza <span class="opcional">(opcional, para el PDF)</span></label>
-                            <input type="text" id="piezaDescripcion" placeholder="Ej: Soporte de auriculares x2">
+                            <input type="text" id="piezaDescripcion" placeholder="Ej: Medallas personalizadas">
+                        </div>
+                        <div class="field full-width">
+                            <label>Mano de obra / Servicios <span class="opcional">(se cobra tal cual, sin margen)</span></label>
+                            <div id="lista-servicios"></div>
+                            <button type="button" id="btn-add-servicio" class="btn-add-fila">+ Agregar Servicio</button>
                         </div>
                         <div class="field full-width">
                             <label for="clienteNombre">Cliente <span class="opcional">(opcional, para el PDF)</span></label>
@@ -144,6 +153,7 @@
                         <hr>
                         <div class="res-row"><span>Costo de Impresión</span> <b id="resSubtotal">$0</b></div>
                         <div class="res-row"><span>Extras</span> <b id="resExtras">$0</b></div>
+                        <div class="res-row"><span>Mano de obra</span> <b id="resServicios">$0</b></div>
                         <hr>
                         <div class="res-row highlight"><span>Costo de Producción</span> <b id="resCostoTotal">$0</b></div>
                     </div>

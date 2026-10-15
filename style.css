@@ -210,7 +210,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 15px 0; }
     margin-bottom: 8px;
 }
 
-#btn-add-extra {
+.btn-add-fila {
     width: 100%;
     background: transparent;
     border: 1px dashed var(--accent);
@@ -223,7 +223,7 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 15px 0; }
     margin-top: 5px;
 }
 
-#btn-add-extra:hover {
+.btn-add-fila:hover {
     background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
