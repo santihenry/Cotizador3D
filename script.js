@@ -99,9 +99,9 @@ function calcular() {
     document.getElementById('resLuz').innerText        = formatCur(costoLuz);
     document.getElementById('resDesgaste').innerText   = formatCur(costoDesgaste);
     document.getElementById('resMargen').innerText     = formatCur(costoMargenSeguridad);
-    document.getElementById('resSubtotal').innerText   = formatCur(subtotalImpresion);
+    document.getElementById('resSubtotal').innerText   = formatCur(costoProduccion);
     document.getElementById('resExtras').innerText     = formatCur(sumaExtras);
-    document.getElementById('resCostoTotal').innerText = formatCur(costoProduccion);
+    document.getElementById('resCostoTotal').innerText = formatCur(costoProduccion + sumaExtras);
     document.getElementById('totalCobrar').innerText   = formatCur(totalVenta);
     document.getElementById('totalML').innerText       = formatCur(precioML);
 
